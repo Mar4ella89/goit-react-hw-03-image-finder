@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Searchbar from './Searchbar/Searchbar';
-import GalleryInfo from '../api/GalleryInfo';
+import GalleryInfo from '../GalleryInfo/GalleryInfo';
 
 export class App extends Component {
   state = {
