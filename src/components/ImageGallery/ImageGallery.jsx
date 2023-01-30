@@ -19,6 +19,7 @@ class ImageGallery extends Component {
         )
         .then(({ data }) => {
           this.setState({ items: data.hits });
+          
           console.log(data.hits);
         
         });
