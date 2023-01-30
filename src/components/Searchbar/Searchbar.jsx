@@ -6,22 +6,21 @@ import css from './Searchbar.module.css';
 
 class Searchbar extends Component {
   state = {
-    imageName: '',
+    searchQuery: '',
   };
 
   handleNameChange = event => {
-    this.setState({ imageName: event.currentTarget.value.toLowerCase() });
+    this.setState({ searchQuery: event.currentTarget.value.toLowerCase() });
   };
 
   handleSubmit = event => {
     event.preventDefault();
 
-    if (this.state.imageName.trim() === '') {
-      toast.error('Please enter a search term in the search box');
-      return;
+    if (this.state.searchQuery.trim() === '') {
+      return toast.error('Please enter a search term in the search box');
     }
-    this.props.onSubmit(this.state.imageName);
-    this.setState({ imageName: '' });
+    this.props.onSubmit(this.state.searchQuery);
+    this.setState({ searchQuery: '' });
   };
 
   render() {
@@ -36,8 +35,8 @@ class Searchbar extends Component {
           <input
             className={css.SearchFormInput}
             type="text"
-            name="imageName"
-            value={this.state.imageName}
+            name="searchQuery"
+            value={this.state.searchQuery}
             onChange={this.handleNameChange}
             autoComplete="off"
             autoFocus

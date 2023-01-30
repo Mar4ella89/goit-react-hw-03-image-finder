@@ -6,19 +6,19 @@ import GalleryInfo from '../api/GalleryInfo';
 
 export class App extends Component {
   state = {
-    imageName: '',
+    searchQuery: '',
   };
 
-  handleFormSubmit = imageName => {
-    this.setState({ imageName });
+  handleFormSubmit = searchQuery => {
+    this.setState({ searchQuery });
   };
 
   render() {
     return (
       <div>
         <Searchbar onSubmit={this.handleFormSubmit} />
-        <ToastContainer autoClose={3000} />;
-        <GalleryInfo imageName={this.state.imageName} />
+        <ToastContainer autoClose={3000} />
+        <GalleryInfo searchQuery={this.state.searchQuery} />
       </div>
     );
   }
