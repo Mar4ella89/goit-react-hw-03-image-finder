@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { ToastContainer } from 'react-toastify';
 import Loader from 'components/Loader/Loader';
+import { toast } from 'react-toastify';
 
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
@@ -29,6 +30,7 @@ export class App extends Component {
 
       searchQueryImg(searchQuery, page)
         .then(data => {
+          if (data.hits.length === 0){toast.info('The search has not given any results. Try to find something else')} 
           this.setState(({ items }) => ({ items: [...items, ...data.hits] }));
         })
         .catch(error => {

@@ -19,7 +19,7 @@ class Searchbar extends Component {
     event.preventDefault();
 
     if (this.state.searchQuery.trim() === '') {
-      return toast.error('Please enter a search term in the search box');
+      return toast.warn('Please enter a search term in the search box');
     }
     this.props.onSubmit(this.state.searchQuery);
     this.reset();
