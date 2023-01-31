@@ -11,10 +11,11 @@ const instance = axios.create({
   },
 });
 
-export const searchQueryImg = async searchQuery => {
+export const searchQueryImg = async (searchQuery, page) => {
   const { data } = await instance.get('/', {
     params: {
       q: searchQuery,
+      page,
     },
   });
   return data;
