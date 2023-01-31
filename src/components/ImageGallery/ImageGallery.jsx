@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 import css from './ImageGallery.module.css';
 
 const ImageGallery = ({ items }) => {
-  const elements = items.map(({ id, webformatURL }) => (
-    <ImageGalleryItem key={id} srcImg={webformatURL} />
+  const elements = items.map(({ id, webformatURL, showImage }) => (
+    <ImageGalleryItem key={id} srcImg={webformatURL} onClick={showImage}/>
   ));
   return <ul className={css.ImageGallery}>{elements}</ul>;
 };
@@ -16,6 +16,7 @@ ImageGallery.propTypes = {
     PropTypes.exact({
       id: PropTypes.string.isRequired,
       webformatURL: PropTypes.string.isRequired,
+      largeImageURL: PropTypes.string.isRequired,
     })
   ),
 };

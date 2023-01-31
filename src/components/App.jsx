@@ -7,6 +7,8 @@ import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import searchQueryImg from 'services/gallery-api';
 import Button from 'components/Button/Button';
+import Modal from './Modal/Modal';
+import ImageDetails from './ImageDetails/ImageDetails';
 
 import 'react-toastify/dist/ReactToastify.css';
 import css from './App.module.css';
@@ -18,6 +20,8 @@ export class App extends Component {
     loading: false,
     error: null,
     page: 1,
+    showModal: false,
+    imgDetails: null,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -35,6 +39,7 @@ export class App extends Component {
       this.setState({ loading: true });
       const { searchQuery, page } = this.state;
       const data = await searchQueryImg(searchQuery, page);
+
       if (data.hits.length === 0) {
         toast.info(
           'The search has not given any results. Try to find something else'
@@ -56,13 +61,22 @@ export class App extends Component {
     this.setState({ searchQuery, items: [], page: 1 });
   };
 
+showImage = ({largeImageURL}) => {
+this.setState({
+  imgDetails: {
+    largeImageURL,
+  },
+  showModal: true,
+})
+}
+
   render() {
     const { items, loading, error } = this.state;
     return (
       <div className={css.App}>
         <Searchbar onSubmit={this.handleFormSubmit} />
         <ToastContainer autoClose={3000} />
-        <ImageGallery items={items} />
+        <ImageGallery items={items} showImage={this.showImage}/>
 
         {loading && <Loader />}
         {error && <p>An error has occurred. Please try again later...</p>}
@@ -70,6 +84,10 @@ export class App extends Component {
         {Boolean(items.length) && (
           <Button text={'Load more'} onClick={this.loadMore} />
         )}
+
+        <Modal>
+          <ImageDetails items={items}/>
+        </Modal>
       </div>
     );
   }
