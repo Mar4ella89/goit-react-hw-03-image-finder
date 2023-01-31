@@ -21,22 +21,30 @@ export class App extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    const{searchQuery, page} = this.state
+    const { searchQuery, page } = this.state;
     const prevSearchQuery = prevState.searchQuery;
-        const prevPage = prevState.page;
-        
-    if (prevSearchQuery !== searchQuery || prevPage !== page) {
-      this.setState({ loading: true });
+    const prevPage = prevState.page;
 
-      searchQueryImg(searchQuery, page)
-        .then(data => {
-          if (data.hits.length === 0){toast.info('The search has not given any results. Try to find something else')} 
-          this.setState(({ items }) => ({ items: [...items, ...data.hits] }));
-        })
-        .catch(error => {
-          this.setState({ error: error.message });
-        })
-        .finally(() => this.setState({ loading: false }));
+    if (prevSearchQuery !== searchQuery || prevPage !== page) {
+      this.fetchImg();
+    }
+  }
+
+  async fetchImg() {
+    try {
+      this.setState({ loading: true });
+      const { searchQuery, page } = this.state;
+      const data = await searchQueryImg(searchQuery, page);
+      if (data.hits.length === 0) {
+        toast.info(
+          'The search has not given any results. Try to find something else'
+        );
+      }
+      this.setState(({ items }) => ({ items: [...items, ...data.hits] }));
+    } catch (error) {
+      this.setState({ error: error.message });
+    } finally {
+      this.setState({ loading: false });
     }
   }
 
@@ -45,7 +53,7 @@ export class App extends Component {
   };
 
   handleFormSubmit = searchQuery => {
-    this.setState({ searchQuery, items: [], page: 1});
+    this.setState({ searchQuery, items: [], page: 1 });
   };
 
   render() {
