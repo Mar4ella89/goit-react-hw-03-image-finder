@@ -1,6 +1,8 @@
-import { Component } from 'react';
 import { ImSearch } from 'react-icons/im';
 import { toast } from 'react-toastify';
+
+import { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import css from './Searchbar.module.css';
 
@@ -20,8 +22,12 @@ class Searchbar extends Component {
       return toast.error('Please enter a search term in the search box');
     }
     this.props.onSubmit(this.state.searchQuery);
-    this.setState({ searchQuery: '' });
+    this.reset();
   };
+
+  reset() {
+    this.setState({ searchQuery: '' });
+  }
 
   render() {
     return (
@@ -47,5 +53,9 @@ class Searchbar extends Component {
     );
   }
 }
+
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
 
 export default Searchbar;
