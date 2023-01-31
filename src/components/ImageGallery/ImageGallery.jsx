@@ -13,23 +13,23 @@ class ImageGallery extends Component {
     loading: false,
   };
 
-  
   componentDidUpdate(prevProps, prevState) {
-    
-
     const prevSearchQuery = prevProps.searchQuery;
     const nextSearchQuery = this.props.searchQuery;
     if (prevSearchQuery !== nextSearchQuery) {
-        this.setState({ loading: true });
+      this.setState({ loading: true });
       axios
         .get(
           `https://pixabay.com/api/?q=${nextSearchQuery}&page=1&key=31981261-43107a8c97a37675e78f6a341&image_type=photo&orientation=horizontal&per_page=12`
         )
         .then(({ data }) => {
-          this.setState({ items: data.hits, loading: false });
-
+          this.setState({ items: data.hits });
           console.log(data.hits);
-        });
+        })
+        .catch(error => {
+          console.log(error.message);
+        })
+        .finally(() => this.setState({ loading: false }));
     }
   }
 
@@ -40,7 +40,7 @@ class ImageGallery extends Component {
     ));
     return (
       <>
-        {loading && <Loader/>}
+        {loading && <Loader />}
         <ul className={css.ImageGallery}>{elements}</ul>
       </>
     );
