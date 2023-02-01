@@ -20,6 +20,7 @@ export class App extends Component {
     loading: false,
     error: null,
     page: 1,
+    per_page: 12,
     showModal: false,
     imgDetails: null,
   };
@@ -37,8 +38,8 @@ export class App extends Component {
   async fetchImg() {
     try {
       this.setState({ loading: true });
-      const { searchQuery, page } = this.state;
-      const data = await searchQueryImg(searchQuery, page);
+      const { searchQuery, page, per_page } = this.state;
+      const data = await searchQueryImg(searchQuery, page, per_page);
 
       if (data.hits.length === 0) {
         toast.info(
@@ -78,7 +79,9 @@ export class App extends Component {
   };
 
   render() {
-    const { items, loading, error, showModal, imgDetails } = this.state;
+    const { items, per_page, loading, error, showModal, imgDetails } =
+      this.state;
+
     return (
       <div className={css.App}>
         <Searchbar onSubmit={this.handleFormSubmit} />
@@ -88,7 +91,7 @@ export class App extends Component {
         {loading && <Loader />}
         {error && <p>An error has occurred. Please try again later...</p>}
 
-        {Boolean(items.length) && (
+        {items.length >= per_page && (
           <Button text={'Load more'} onClick={this.loadMore} />
         )}
 
