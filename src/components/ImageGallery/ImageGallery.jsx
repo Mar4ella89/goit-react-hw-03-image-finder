@@ -18,7 +18,7 @@ const ImageGallery = ({ items, showImage }) => {
 
 ImageGallery.propTypes = {
   showImage: PropTypes.func.isRequired,
-  items: PropTypes.arrayOf(PropTypes.array).isRequired,
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default ImageGallery;
