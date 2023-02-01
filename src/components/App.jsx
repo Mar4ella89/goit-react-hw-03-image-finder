@@ -61,22 +61,29 @@ export class App extends Component {
     this.setState({ searchQuery, items: [], page: 1 });
   };
 
-showImage = ({largeImageURL}) => {
-this.setState({
-  imgDetails: {
-    largeImageURL,
-  },
-  showModal: true,
-})
-}
+  showImage = ({ largeImageURL }) => {
+    this.setState({
+      imgDetails: {
+        largeImageURL,
+      },
+      showModal: true,
+    });
+  };
+
+  closeModal = () => {
+    this.setState({
+      imgDetails: null,
+      showModal: false,
+    });
+  };
 
   render() {
-    const { items, loading, error, showModal, imgDetails} = this.state;
+    const { items, loading, error, showModal, imgDetails } = this.state;
     return (
       <div className={css.App}>
         <Searchbar onSubmit={this.handleFormSubmit} />
         <ToastContainer autoClose={3000} />
-        <ImageGallery items={items} showImage={this.showImage}/>
+        <ImageGallery items={items} showImage={this.showImage} />
 
         {loading && <Loader />}
         {error && <p>An error has occurred. Please try again later...</p>}
@@ -85,9 +92,11 @@ this.setState({
           <Button text={'Load more'} onClick={this.loadMore} />
         )}
 
-        {showModal && <Modal>
-          <ImageDetails {...imgDetails}/>
-        </Modal>}
+        {showModal && (
+          <Modal close={this.closeModal}>
+            <ImageDetails {...imgDetails} />
+          </Modal>
+        )}
       </div>
     );
   }

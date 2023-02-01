@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 import css from './ImageGalleryItem.module.css';
 
-const ImageGalleryItem = ({ srcImg, largeImg, showImage }) => {
+const ImageGalleryItem = ({ srcImg, largeImg, showImg }) => {
   console.log(largeImg);
   
   return (
-    <li onClick={()=>showImage({largeImg})} className={css.galleryItem} >
+    <li onClick={showImg} className={css.galleryItem} >
       <img src={srcImg} alt="" className={css.ImageGalleryItemImage} />
     </li>
   );

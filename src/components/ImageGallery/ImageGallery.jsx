@@ -7,7 +7,7 @@ import css from './ImageGallery.module.css';
 const ImageGallery = ({ items, showImage }) => {
   console.log(items)
   const elements = items.map(({ id, webformatURL, largeImageURL }) => (
-    <ImageGalleryItem key={id} srcImg={webformatURL} largeImg={largeImageURL} showImage={()=>{showImage({largeImageURL})}}/>
+    <ImageGalleryItem key={id} srcImg={webformatURL} largeImg={largeImageURL} showImg={()=>showImage({largeImageURL})}/>
   ));
   return <ul className={css.ImageGallery}>{elements}</ul>;
 };
