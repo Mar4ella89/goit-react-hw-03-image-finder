@@ -71,7 +71,7 @@ this.setState({
 }
 
   render() {
-    const { items, loading, error } = this.state;
+    const { items, loading, error, showModal, imgDetails} = this.state;
     return (
       <div className={css.App}>
         <Searchbar onSubmit={this.handleFormSubmit} />
@@ -85,9 +85,9 @@ this.setState({
           <Button text={'Load more'} onClick={this.loadMore} />
         )}
 
-        <Modal>
-          <ImageDetails items={items}/>
-        </Modal>
+        {showModal && <Modal>
+          <ImageDetails {...imgDetails}/>
+        </Modal>}
       </div>
     );
   }

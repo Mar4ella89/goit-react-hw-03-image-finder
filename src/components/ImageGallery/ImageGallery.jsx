@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 
 import css from './ImageGallery.module.css';
 
-const ImageGallery = ({ items }) => {
-  const elements = items.map(({ id, webformatURL, showImage }) => (
-    <ImageGalleryItem key={id} srcImg={webformatURL} onClick={showImage}/>
+const ImageGallery = ({ items, showImage }) => {
+  console.log(items)
+  const elements = items.map(({ id, webformatURL, largeImageURL }) => (
+    <ImageGalleryItem key={id} srcImg={webformatURL} largeImg={largeImageURL} showImage={()=>{showImage({largeImageURL})}}/>
   ));
   return <ul className={css.ImageGallery}>{elements}</ul>;
 };
@@ -14,7 +15,7 @@ const ImageGallery = ({ items }) => {
 ImageGallery.propTypes = {
   items: PropTypes.arrayOf(
     PropTypes.exact({
-      id: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
       webformatURL: PropTypes.string.isRequired,
       largeImageURL: PropTypes.string.isRequired,
     })
