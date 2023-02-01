@@ -19,7 +19,7 @@ class Modal extends Component {
   };
 
   render() {
-    const { children, close } = this.props;
+    const { children } = this.props;
     return (
       <div className={css.Overlay} onClick={this.closeModal}>
         <div className={css.Modal}>{children}</div>
@@ -30,6 +30,7 @@ class Modal extends Component {
 
 Modal.propTypes = {
   children: PropTypes.element.isRequired,
+  close: PropTypes.func.isRequired,
 };
 
 export default Modal;
